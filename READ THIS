@@ -1,0 +1,3 @@
+Run "make qemu" in the directory
+After os runs
+Run: "userprogram" (which is a precompiled program that runs our system calls)
