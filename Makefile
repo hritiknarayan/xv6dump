@@ -186,3 +186,4 @@ tar:
 	cp dist/* /tmp/xv6
 	(cd /tmp; tar cf - xv6) | gzip >xv6-rev2.tar.gz
 
+QEMU=qemu-system-x86_64
