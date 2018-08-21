@@ -1,0 +1,188 @@
+QUESTION 1.
+
+select sid,name from table1_520 where dept=20 AND sage>20
+
++------+-------+
+| sid  | name  |
++------+-------+
+|  108 | Gopal |
++------+-------+
+
+QUESTION 2.
+
+select sid,name, dname from table1_520,table2_520 where dept=dnum;
++------+---------+-------+
+| sid  | name    | dname |
++------+---------+-------+
+|  101 | kiran   | eee   |
+|  102 | Mohan   | cse   |
+|  105 | John    | cse   |
+|  108 | Gopal   | eee   |
+|  109 | Abdul   | cse   |
+|  110 | Narmada | math  |
+|  114 | Murali  | cse   |
++------+---------+-------+
+
+QUESTION 3.
+
+select sid,name, dept from table1_520 where sage>21;
++------+--------+------+
+| sid  | name   | dept |
++------+--------+------+
+|  108 | Gopal  |   20 |
+|  114 | Murali |   10 |
++------+--------+------+
+
+QUESTION 4.
+
+select * from table1_520 order by dept asc;
++------+---------+------+------------+------+
+| sid  | name    | sage | sdate      | dept |
++------+---------+------+------------+------+
+|  102 | Mohan   |   21 | 2013-01-20 |   10 |
+|  105 | John    |   21 | 2012-01-08 |   10 |
+|  109 | Abdul   |   20 | 2013-01-14 |   10 |
+|  114 | Murali  |   23 | 2010-01-14 |   10 |
+|  101 | kiran   |   20 | 2013-01-04 |   20 |
+|  108 | Gopal   |   22 | 2013-08-19 |   20 |
+|  110 | Narmada |   21 | 2011-08-10 |   30 |
++------+---------+------+------------+------+
+
+QUESTION 5.
+
+select sid,name, dname from table1_520,table2_520 where dept=dnum AND dname='eee';
++------+-------+-------+
+| sid  | name  | dname |
++------+-------+-------+
+|  101 | kiran | eee   |
+|  108 | Gopal | eee   |
++------+-------+-------+
+
+QUESTION 6.
+
+ select table1_520.sid, table1_520.name,table2_520.dname from table1_520,table2_520;
++------+---------+-------+
+| sid  | name    | dname |
++------+---------+-------+
+|  101 | kiran   | cse   |
+|  101 | kiran   | eee   |
+|  101 | kiran   | math  |
+|  101 | kiran   | phy   |
+|  102 | Mohan   | cse   |
+|  102 | Mohan   | eee   |
+|  102 | Mohan   | math  |
+|  102 | Mohan   | phy   |
+|  105 | John    | cse   |
+|  105 | John    | eee   |
+|  105 | John    | math  |
+|  105 | John    | phy   |
+|  108 | Gopal   | cse   |
+|  108 | Gopal   | eee   |
+|  108 | Gopal   | math  |
+|  108 | Gopal   | phy   |
+|  109 | Abdul   | cse   |
+|  109 | Abdul   | eee   |
+|  109 | Abdul   | math  |
+|  109 | Abdul   | phy   |
+|  110 | Narmada | cse   |
+|  110 | Narmada | eee   |
+|  110 | Narmada | math  |
+|  110 | Narmada | phy   |
+|  114 | Murali  | cse   |
+|  114 | Murali  | eee   |
+|  114 | Murali  | math  |
+|  114 | Murali  | phy   |
++------+---------+-------+
+
+QUESTION 7.
+
+ select sid as 'roll',name as 'Name',dname as 'Branch' from table1_520,table2_520 where dnum=dept;
++------+---------+--------+
+| roll | Name    | Branch |
++------+---------+--------+
+|  101 | kiran   | eee    |
+|  102 | Mohan   | cse    |
+|  105 | John    | cse    |
+|  108 | Gopal   | eee    |
+|  109 | Abdul   | cse    |
+|  110 | Narmada | math   |
+|  114 | Murali  | cse    |
++------+---------+--------+
+
+QUESTION 8.
+
+select sid,name from table1_520,table2_520 where dept=dnum order by name desc,dnum;
++------+---------+
+| sid  | name    |
++------+---------+
+|  110 | Narmada |
+|  114 | Murali  |
+|  102 | Mohan   |
+|  101 | kiran   |
+|  105 | John    |
+|  108 | Gopal   |
+|  109 | Abdul   |
++------+---------+
+
+QUESTION 9.
+
+insert into table1_520 values(121, 'Govinda',21,'21-3-2011',20)
+
+select sid,name from table1_520;
++------+---------+
+| sid  | name    |
++------+---------+
+|  101 | kiran   |
+|  102 | Mohan   |
+|  105 | John    |
+|  108 | Gopal   |
+|  109 | Abdul   |
+|  110 | Narmada |
+|  114 | Murali  |
+|  121 | Govinda |
++------+---------+
+
+QUESTION 10.
+
+select sid,name from table1_520 where name like 'Go%';
++------+---------+
+| sid  | name    |
++------+---------+
+|  108 | Gopal   |
+|  121 | Govinda |
++------+---------+
+
+QUESTION 11. 
+
+select sid,name from table1_520 where name like '%da';
++------+---------+
+| sid  | name    |
++------+---------+
+|  110 | Narmada |
+|  121 | Govinda |
++------+---------+
+
+QUESTION 12.
+
+select sid,name from table1_520 where length(name)=5;
++------+-------+
+| sid  | name  |
++------+-------+
+|  101 | kiran |
+|  102 | Mohan |
+|  108 | Gopal |
+|  109 | Abdul |
++------+-------+
+
+
+
+
+
+
+
+
+
+
+
+
+
