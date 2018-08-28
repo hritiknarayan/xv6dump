@@ -1,0 +1,279 @@
+Q1.
+
+select * from table1_520 where name like "%an" and length(name)=5;
++------+-------+------+------------+------+
+| sid  | name  | sage | sdate      | dept |
++------+-------+------+------------+------+
+|  101 | kiran |   20 | 2013-01-04 |   20 |
+|  102 | Mohan |   21 | 2013-01-20 |   10 |
++------+-------+------+------------+------+
+
+Q2.
+
+select * from table1_520 where name like "%oh%";
++------+-------+------+------------+------+
+| sid  | name  | sage | sdate      | dept |
++------+-------+------+------------+------+
+|  102 | Mohan |   21 | 2013-01-20 |   10 |
+|  105 | John  |   21 | 2012-01-08 |   10 |
++------+-------+------+------------+------+
+
+Q3.
+
+select sid,name from table1_520,table2_520 where dnum=dept and loc IN ('Block_b','Block_n');
++------+---------+
+| sid  | name    |
++------+---------+
+|  101 | kiran   |
+|  102 | Mohan   |
+|  105 | John    |
+|  108 | Gopal   |
+|  109 | Abdul   |
+|  114 | Murali  |
+|  121 | Govinda |
++------+---------+
+
+Q4.
+select sid,name from table1_520 where exists(select * from table2_520 where loc='Block_b' and dept=dnum);
++------+---------+
+| sid  | name    |
++------+---------+
+|  101 | kiran   |
+|  102 | Mohan   |
+|  105 | John    |
+|  108 | Gopal   |
+|  109 | Abdul   |
+|  114 | Murali  |
+|  121 | Govinda |
++------+---------+
+
+
+
+Q5.
+
+select sid,name from table1_520 where dept=20 UNION select sid,name from table1_520 where sage=21;
++------+---------+
+| sid  | name    |
++------+---------+
+|  101 | kiran   |
+|  108 | Gopal   |
+|  121 | Govinda |
+|  102 | Mohan   |
+|  105 | John    |
+|  110 | Narmada |
++------+---------+
+
+
+
+Q6.
+
+select sid,name from table1_520 where dept=20 and sage not in (22);
++------+---------+
+| sid  | name    |
++------+---------+
+|  101 | kiran   |
+|  121 | Govinda |
++------+---------+
+
+Q7.
+
+select dnum,count(dnum) from table1_520,table2_520 where dnum=dept group by dnum;
++------+-------------+
+| dnum | count(dnum) |
++------+-------------+
+|   10 |           4 |
+|   20 |           3 |
+|   30 |           2 |
+
+
+Q8,9,10.
+
+select * from Project_520;
++------+-----------+-----------+
+| pnum | pname     | ploc      |
++------+-----------+-----------+
+|    1 | Bigdata   | Hyderabad |
+|    2 | SensorNW  | Chennai   |
+|    3 | Cloud     | Delhi     |
+|    4 | Webdesign | Chennai   |
++------+-----------+-----------+
+
+select * from Student_Project_520;
++------+------+------+
+| sno  | pno  | hrs  |
++------+------+------+
+|  101 |    2 |    3 |
+|  105 |    2 |    4 |
+|  105 |    4 |    5 |
+|  109 |    1 |    7 |
+|  109 |    2 |    2 |
+|  109 |    3 |    4 |
+|  109 |    4 |    9 |
+|  114 |    1 |   11 |
+|  118 |    1 |    6 |
+|  118 |    2 |    2 |
++------+------+------+
+
+
+Q11.
+
+select sid,name from table1_520 where exists(select * from Student_Project_520 where sid=sno);
++------+--------+
+| sid  | name   |
++------+--------+
+|  101 | kiran  |
+|  105 | John   |
+|  109 | Abdul  |
+|  114 | Murali |
+|  118 | komal  |
++------+--------+
+
+select sid,name from table1_520 where sid in (select sid from Student_Project_520 where sid=sno);
++------+--------+
+| sid  | name   |
++------+--------+
+|  101 | kiran  |
+|  105 | John   |
+|  109 | Abdul  |
+|  114 | Murali |
+|  118 | komal  |
++------+--------+
+
+Q12.
+
+select sid,name from table1_520 where sid not in (select sid from Student_Project_520 where sid=sno);
++------+---------+
+| sid  | name    |
++------+---------+
+|  102 | Mohan   |
+|  108 | Gopal   |
+|  110 | Narmada |
+|  121 | Govinda |
++------+---------+
+
+ select sid,name from table1_520 where not exists(select * from Student_Project_520 where sid=sno);
++------+---------+
+| sid  | name    |
++------+---------+
+|  102 | Mohan   |
+|  108 | Gopal   |
+|  110 | Narmada |
+|  121 | Govinda |
++------+---------+
+
+Q13.
+
+select pno,count(pno) from Student_Project_520 group by pno;
++------+------------+
+| pno  | count(pno) |
++------+------------+
+|    1 |          3 |
+|    2 |          4 |
+|    3 |          1 |
+|    4 |          2 |
++------+------------+
+
+Q14.
+
+select sid,count(sid) from table1_520,Student_Project_520 where sid=sno group by sid;
++------+------------+
+| sid  | count(sid) |
++------+------------+
+|  101 |          1 |
+|  105 |          2 |
+|  109 |          4 |
+|  114 |          1 |
+|  118 |          2 |
++------+------------+
+
+Q15.
+
+select pnum,pname,count(pno) from Project_520,Student_Project_520 where pnum=pno group by pnum,pname;
++------+-----------+------------+
+| pnum | pname     | count(pno) |
++------+-----------+------------+
+|    1 | Bigdata   |          3 |
+|    2 | SensorNW  |          4 |
+|    3 | Cloud     |          1 |
+|    4 | Webdesign |          2 |
++------+-----------+------------+
+
+Q16.
+
+select sid,name from table1_520,Project_520,Student_Project_520 where ploc="Chennai" and pnum=pno and sid=sno;
++------+-------+
+| sid  | name  |
++------+-------+
+|  101 | kiran |
+|  105 | John  |
+|  105 | John  |
+|  109 | Abdul |
+|  109 | Abdul |
+|  118 | komal |
++------+-------+
+
+select sid,name from table1_520 where sid in(select sno from Project_520,Student_Project_520 where (ploc="Chennai" and pnum=pno) group by sno);
++------+-------+
+| sid  | name  |
++------+-------+
+|  101 | kiran |
+|  105 | John  |
+|  109 | Abdul |
+|  118 | komal |
++------+-------+
+
+select sid,name from table1_520,Student_Project_520 where sid=sno and  exists(select * from Project_520 where (ploc="Chennai" and pnum=pno));
++------+-------+
+| sid  | name  |
++------+-------+
+|  101 | kiran |
+|  105 | John  |
+|  105 | John  |
+|  109 | Abdul |
+|  109 | Abdul |
+|  118 | komal |
++------+-------+
+
+Q17.
+
+i)select sid,name from table1_520,Student_Project_520 where not exists(select * from Project_520 where ploc="Chennai" and pnum=pno) and sid=sno;
++------+--------+
+| sid  | name   |
++------+--------+
+|  109 | Abdul  |
+|  109 | Abdul  |
+|  114 | Murali |
+|  118 | komal  |
++------+--------+
+
+ii)select sid,name from table1_520 where sid not in(select sno from Student_Project_520,Project_520 where ploc="Chennai" and pnum=pno and sid=sno);
++------+---------+
+| sid  | name    |
++------+---------+
+|  102 | Mohan   |
+|  108 | Gopal   |
+|  110 | Narmada |
+|  114 | Murali  |
+|  121 | Govinda |
++------+---------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
