@@ -1,0 +1,149 @@
+mysql> create database moviedb520;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use moviedb520;
+Database changed
+mysql> create table movie(modid int, title text,year int,director text);
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> create table reviewer(revid int, name text);
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> create table rating(revid int,movid int,stars int,ratingdate date);
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> inert into movie
+    -> exit
+    -> dkfkls
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inert into movie
+exit
+dkfkls' at line 1
+mysql> insert into movie
+    -> values(112,'Citizen Kane',1941,'Orson Welles');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into movie values(111,'Forrest Gump',1994,'Robert Zemeckis');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into movie values(110,'Schindlers List',1993,'Steven Spielberg'); Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into movie values(101,'Gone with the Wind',1939,'Victor Fleming'); 
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into movie values(109,'The Godfather',1972,'Francis Coppola');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into movie values(102,'Star Wars',1977,'George Lucas');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into movie values(103,'The Sound of Music',1965,'Robert Wise');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into movie values(104,'E.T.',1982,'Steven Spielberg');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into movie values(105,'Titanic',1997,'James Cameron');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into movie values(106,'Snow White',1937,null);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into movie values(107,'Avatar',2009,'James Cameron');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into movie values(108,'Raiders of the Lost Ark',1981,'Steven Spielberg');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into reviewer values(201,'Sarah Martinez');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into reviewer values(202,'Daniel Lewis');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into reviewer values(203,'Brittany Harris');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into reviewer values(204,'Mike Anderson');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into reviewer values(205,'Chris Jackson');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into reviewer values(206,'Elizabeth Thomas');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into reviewer values(207,'James Cameron');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into reviewer values(208,'Ashley White');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(206,112,5,'2012-01-10');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(203,110,4,'2010-01-22');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into rating values(207,112,3,'2011-08-18');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(204,109,4,'2012-01-22');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into rating values(208,109,5,'2010-04-16');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(204,109,5,'2010-04-16');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into rating values(208,111,3,'2011-06-22');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(201,110,5,'2012-01-10');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(201,101,2,'2011-01-22');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(201,101,4,'2011-01-27');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into rating values(202,106,4,null);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into rating values(203,103,2,'2011-01-20');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into rating values(203,108,4,'2011-01-12');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into rating values(203,108,2,'2011-01-30');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(204,101,3,'2011-01-09');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into rating values(205,103,3,'2011-01-27');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into rating values(205,104,2,'2011-01-22');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(205,108,4,null);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into rating values(206,107,3,'2011-01-15');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(206,106,5,'2011-01-19');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(207,107,5,'2011-01-20');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into rating values(208,104,3,'2011-01-02');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+
