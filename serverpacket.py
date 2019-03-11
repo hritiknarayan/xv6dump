@@ -59,8 +59,8 @@ def listpgen(plist):
 	return pmat
 	
 
-def calculate_intersection(n,recmat):	
-	omat = [[0 for j in range(n)] for i in range(n)]
+def errorcoordsgen(n,recmat):	
+	originalmat = [[0 for j in range(n)] for i in range(n)]
 	
 	plist = []
 	coordlist = []
@@ -69,9 +69,9 @@ def calculate_intersection(n,recmat):
 			if(i == n):
 				plist.append(recmat[i][j])
 			else:				
-				omat[i][j] = recmat[i][j]
+				originalmat[i][j] = recmat[i][j]
 	
-	porigmat = paritymatgen(n,omat)
+	porigmat = paritymatgen(n,originalmat)
 	print "matrix parity generated:",porigmat
 	precmat = listpgen(plist)
 	print "list parity generated:",precmat	
@@ -85,26 +85,26 @@ def calculate_intersection(n,recmat):
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)         # Create a socket object
 host = socket.gethostbyname(socket.gethostname()) # Get local machine name
-port = 33369                # Reserve a port for your service.
+port = 12345             # Reserve a port for your service.
 s.bind((host, port))        
 print 'host ip', host
 n = 0
 s.listen(5)                 # Now wait for client connection.  
-while True:
+while 1==1:
    	c, addr = s.accept()     
    	print 'Connection from', addr
-	close_fl = 0
+	closeflag = 0
 	last_packet = " "
 	str_mat = ""	
 	
-	while True:
-		while True:
+	while 1==1:
+		while 1==1:
 			recpacket = c.recv(1024)
 			print "incoming packet",recpacket
 			if recpacket[:3] == 'IHF':
 				print "incorrect header format, resending packet"
 				c.send(last_packet)
-			elif recpacket[:2] == 'MS':
+			elif recpacket[:2] == 'im':
 				i = 3
 				str_n = ""
 				while(recpacket[i] != '_'):
@@ -139,41 +139,42 @@ while True:
 			last_packet = "ack_c_"
 			break
 			
-	sending_str = ""
+	stringsent = ""
 	last_sent = 0			
    
-	while(close_fl == 0):
+	while(closeflag == 0):
 		recpacket = c.recv(1024)
 		print "incoming packet", recpacket 
 		if recpacket[:3] == 'IHF':
 			print "improper header resend last packer"
 			c.send(last_packet)    
 		elif recpacket[:5] == 'ack_s':
-			inter = calculate_intersection(n,rmat)
+			inter = errorcoordsgen(n,rmat)
 			st_inter = listencode(inter)
 			for i in range(len(st_inter)):
 				if i <= 1000: 
-					sending_str += st_inter[i]
+					stringsent += st_inter[i]
 				else:
 					last_sent = i
 					break 
-			c.send("ico_"+str(len(inter))+"_"+sending_str) 
+			c.send("ico_"+str(len(inter))+"_"+stringsent) 
 			
-			last_packet = "ico_"+str(len(inter))+"_"+sending_str
+			last_packet = "ico_"+str(len(inter))+"_"+stringsent
 		elif recpacket[:4] == 'inte':
-			sending_str = ""
+			stringsent = ""
 			for i in range(last_sent,len(st_inter)):
 				if i-last_sent <= 1000: 
-					sending_str += st_inter[i]
+					stringsent += st_inter[i]
 				else:
 					last_sent = i
 					break 
-			c.send("ico_"+str(len(inter))+"_"+sending_str) 
+                 
+			c.send("ico_"+str(len(inter))+"_"+stringsent) 
 			
-			last_packet = "ico_"+str(len(inter))+"_"+sending_str
+			last_packet = "ico_"+str(len(inter))+"_"+stringsent
 		elif recpacket[:5] == 's_int':
 			print "intersection/coordinates have been recieved terminate loop"
-			close_fl = 1
+			closeflag = 1
 		else:
 			c.send("IHF_")		
 			print "improper header format, resend packet"

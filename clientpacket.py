@@ -30,7 +30,7 @@ def substring(string1) :
 
 
 
-def stringToMatrix(string1) :
+def matrixcreator(string1) :
     l4 = string1.split("_")
     l5 =[]
     for i in l4 :
@@ -40,13 +40,15 @@ def stringToMatrix(string1) :
 
 s = socket.socket()         # Create a socket object
 host = socket.gethostname() # Get local machine name/for this example
-ports = 33369            #server port
-portc = 32458 	   #client's own port for incoming connections (if any)
+ports = 12345          #server port
+portc = 65432	   #client's own port for incoming connections (if any)
 s.bind((host, portc))
 s.connect((host, ports))
 last_packet = " "
 whileflag = 0
-n = input("Enter the size of the matrix to be sent to server:\n")
+n = random.randint(5,100)
+
+print "The random size generated is:",n
 
 
 #MATRIX GENERATION PART
@@ -118,77 +120,82 @@ st_mat = "_".join(st_mat)
 print "being sent:",st_mat
 
 
-sending_str = ""
+stringsent = ""
 lastcount = 0
 
 for i in range(len(st_mat)):
 	if i <= 1000: 
-		sending_str += st_mat[i]
+		stringsent += st_mat[i]
 	else:
 		lastcount = i
 		break 
-s.send("MS_"+str(n)+"_"+sending_str) 
+sentpack="im_"+str(n)+"_"+stringsent
+s.send(sentpack) 
 
-last_packet = "MS_"+str(n)+"_"+sending_str
+last_packet = sentpack
 
 errorplist = ""
 while(whileflag == 0):
 	currentpacket = s.recv(1024)
-	print "incoming packet", currentpacket 
+ 
+ 
+      
+	print "incoming packet", currentpacket
+     
 	if currentpacket[:3] == 'IHF':
 		print "incorrect header format, resending packet"
 		s.send(last_packet) 
 	elif currentpacket[:3] == 'yes':
-		sending_str = ""
+		stringsent = ""
 		for i in range(lastcount,len(st_mat)):
 			if i-lastcount <= 1000: 
-				sending_str += st_mat[i]
+				stringsent += st_mat[i]
 			else:
 				lastcount = i
 				break 
-		s.send("MS_"+str(n)+"_"+sending_str) #basic protocol header is tag+number
+            
+		s.send("im_"+str(n)+"_"+stringsent) #basic protocol header is tag+number
 		
-		last_packet = "MS_"+str(n)+"_"+sending_str
+		last_packet = "im_"+str(n)+"_"+stringsent
+  
 	elif currentpacket[:5] == 'ack_c':
 		s.send("ack_s_")
 		
 		last_packet = "ack_s_"
 	elif currentpacket[:2] == 'RM':
 		lastcount = 0
-		sending_str = ""
+		stringsent = ""
 		for i in range(lastcount,len(st_mat)):
-			if i-lastcount <= 1000: 
-				sending_str += st_mat[i]
+			if i<= 1000+lastcount: 
+				stringsent += st_mat[i]
 			else:
 				lastcount = i
 				break 
-		s.send("MS_"+str(n)+"_"+sending_str) 
+		s.send("im_"+str(n)+"_"+stringsent)
+              
 		
 	elif currentpacket[:3] == "ico":
 		i = 4
-		str_inter = ""
+		strintersec = ""
 		while(currentpacket[i] != '_'):
-			str_inter += currentpacket[i]
+			strintersec += currentpacket[i]
 			i = i+1
-		inter = int(str_inter)
-		if len(currentpacket) < len(str_inter)+1005:
-			errorplist += currentpacket[5+len(str_inter):]
+		inter = int(strintersec)
+		if len(currentpacket) -1005 < len(strintersec):
+			errorplist += currentpacket[5+len(strintersec):]
 			s.send("s_int_")
 			
 			last_packet = "s_int_"
-			print "error count:",inter
-			print "error coords",errorplist
+			print "error count:",inter, "of ",n*n," elements"
+			#print "error coords",errorplist
 			whileflag = 1
 		else:
-			errorplist += currentpacket[5+len(str_inter):]
+			errorplist += currentpacket[5+len(strintersec):]
 			s.send("inte_")
 			
 			last_packet = "inte_"
 	
-	else:
-		c.send("IHF_")		
-		print "didnt recognize, send ihf"
-		last_packet = "IHF_"
+	
 
 
 s.close                     
